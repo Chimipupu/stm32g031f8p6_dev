@@ -19,9 +19,12 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "crc.h"
+#include "dma.h"
 #include "i2c.h"
-#include "rtc.h"
+#include "i2s.h"
 #include "usart.h"
+#include "rtc.h"
+#include "spi.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -64,7 +67,7 @@ void SystemClock_Config(void);
 // printf()をUARTにポーティング
 int __io_putchar(int ch)
 {
-  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
+  HAL_UART_Transmit(&hlpuart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
   return ch;
 }
 
@@ -99,10 +102,13 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_RTC_Init();
-  MX_USART1_UART_Init();
   MX_CRC_Init();
   MX_I2C1_Init();
+  MX_I2S1_Init();
+  MX_LPUART1_UART_Init();
+  MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
 
   // printf()をUARTにポーティング
@@ -122,7 +128,7 @@ int main(void)
     HAL_GPIO_WritePin(PCB_LED_GPIO_Port, PCB_LED_Pin, s_led_state);
     s_led_state = !s_led_state;
     printf("LED: %s\r\n", s_led_state ? "ON" : "OFF");
-    HAL_Delay(1000);
+    HAL_Delay(300);
   }
   /* USER CODE END 3 */
 }
