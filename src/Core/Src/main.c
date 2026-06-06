@@ -26,6 +26,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
 #include <stdint.h>
 #include <string.h>
 /* USER CODE END Includes */
@@ -59,6 +60,13 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+// printf()をUARTにポーティング
+int __io_putchar(int ch)
+{
+  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
+  return ch;
+}
 
 /* USER CODE END 0 */
 
@@ -97,6 +105,9 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 
+  // printf()をUARTにポーティング
+  setbuf(stdout, NULL);
+  printf("STM32G031F8P6 Develop by Chimipupu\r\n");
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -110,6 +121,7 @@ int main(void)
     // 基板動作確認: Lチカ！ LEDチカチカ！
     HAL_GPIO_WritePin(PCB_LED_GPIO_Port, PCB_LED_Pin, s_led_state);
     s_led_state = !s_led_state;
+    printf("LED: %s\r\n", s_led_state ? "ON" : "OFF");
     HAL_Delay(1000);
   }
   /* USER CODE END 3 */
