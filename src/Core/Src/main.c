@@ -109,7 +109,7 @@ int main(void)
 
     // 基板動作確認: Lチカ！ LEDチカチカ！
     HAL_GPIO_WritePin(PCB_LED_GPIO_Port, PCB_LED_Pin, s_led_state);
-    s_led_state = (s_led_state + 1) % GPIO_PIN_SET;
+    s_led_state = !s_led_state;
     HAL_Delay(1000);
   }
   /* USER CODE END 3 */
