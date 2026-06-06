@@ -29,9 +29,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdio.h>
-#include <stdint.h>
-#include <string.h>
+
+#include "app_main.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -52,7 +52,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-static uint8_t s_led_state = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -63,13 +63,6 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
-// printf()をUARTにポーティング
-int __io_putchar(int ch)
-{
-  HAL_UART_Transmit(&hlpuart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
-  return ch;
-}
 
 /* USER CODE END 0 */
 
@@ -111,9 +104,8 @@ int main(void)
   MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
 
-  // printf()をUARTにポーティング
-  setbuf(stdout, NULL);
-  printf("STM32G031F8P6 Develop by Chimipupu\r\n");
+  app_main_init(); // アプリ初期化
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -124,11 +116,9 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-    // 基板動作確認: Lチカ！ LEDチカチカ！
-    HAL_GPIO_WritePin(PCB_LED_GPIO_Port, PCB_LED_Pin, s_led_state);
-    s_led_state = !s_led_state;
-    printf("LED: %s\r\n", s_led_state ? "ON" : "OFF");
-    HAL_Delay(300);
+    app_main(); // アプリメイン
+
+    HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }
