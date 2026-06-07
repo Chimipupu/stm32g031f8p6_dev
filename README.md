@@ -25,6 +25,6 @@
 
 ```shell
 [build] Memory region         Used Size  Region Size  %age Used
-[build]              RAM:        2144 B         8 KB     26.17%
-[build]            FLASH:       16152 B        64 KB     24.65%
+[build]              RAM:        2160 B         8 KB     26.37%
+[build]            FLASH:       16744 B        64 KB     25.55%
 ```
