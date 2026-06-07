@@ -3,17 +3,24 @@
 ## 開発環境
 
 - マイコン: `STM32G031F8P6`
+  - CPU: ARM Cortex-M0+
+  - Clock: 64MHz
   - Flash: 64KB
   - SRAM: 8KB
-- コンパイラ: Clang (`st-arm-clang 19.1.6`) 
+- コンパイラ: Clang (`st-arm-clang 19.1.6`)
   - 最適化: debug
 - ツールチェイン
   - CMake
   - STM32CubeMX
   - STM32CubeIDE (VSCode版)
-- デバッガ: `ST-LINK/V2-1`
-  - デバッグI/F: SWD
-  - UART: 115200bps 8N1
+- デバッグ
+  - デバッガ: `ST-LINK/V2-1`
+    - デバッグI/F: SWD
+  - printf()デバッグ
+    - LPUART
+      - TX: PA2ピン
+      - RX: PA3ピン
+      - 115200bps 8N1
 
 ## ピンアサイン
 
